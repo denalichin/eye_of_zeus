@@ -1,24 +1,36 @@
 import logo from './logo.svg';
+import {useState, useEffect} from 'react';
 import './App.css';
 
+import MapComponent from './components/MapComponent';
+
+import { NASA_EONET } from "./keys.js"
+import LoadingScreen from './components/LoadingScreen';
+
 function App() {
+  const [eventData, setEventData] = useState([]);
+  const [loading, setLoading] = useState(false);
+
+  useEffect(() => {
+    const fetchEvents = async () => {
+      setLoading(true);
+      const res = await fetch(NASA_EONET);
+      const { events } = await res.json();
+      setEventData(events);
+      setLoading(false);
+    }
+
+    fetchEvents();
+
+    console.log(eventData);
+  },[])
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+   <div>
+     <div className="Menu">Testing</div>
+     {!loading ? <MapComponent eventData={eventData}/> : <LoadingScreen/> /*shorthand if else statement*/}
+     {/* <ReactMap/> */}
+   </div>
   );
 }
 
