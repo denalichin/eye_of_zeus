@@ -29,7 +29,7 @@ export default function MapComponent({eventData}){
     return null
   })
 
-  const defaultProps = {
+  const defaultProps = { //starting default values for the map
     center: {
       lat: 34.0344088,
       lng: -117.7805787,
@@ -41,6 +41,7 @@ export default function MapComponent({eventData}){
     mapId: MAP_ID, //refers to the stylized map that is customized in Google Maps Platform
     clickableIcons: false,
     streetViewControl: false,
+    backgroundColor: "black",
   }), []);
 
   return (

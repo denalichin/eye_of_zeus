@@ -26,7 +26,7 @@ function App() {
   },[])
 
   return (
-   <div>
+   <div className="background">
      <div className="Menu">Testing</div>
      {!loading ? <MapComponent eventData={eventData}/> : <LoadingScreen/> /*shorthand if else statement*/}
      {/* <ReactMap/> */}
