@@ -49,35 +49,45 @@ export default function MapComponent({eventData}){
   //   return null
   // })
 
-  const points = eventData.map(event => (
+  const points = eventData.flatMap(event => { //flatmap allows removing unwanted events (non fire), while if we used map we're forced to return null entries
+    console.log(event.categories[0].id)
+    if(event.categories[0].id === 8){
 
-    {  //each event in array of events
-    type: "Feature",
-    properties: {
-      cluster: false,
-      fire_id: event.id,
-      title: event.title
-      //you can add any fields you want in properties
-    },
-    geometry: { //data that allows supercluster to place points on the map
-      type: "Point",
-      coordinates: [
-        event.geometries[0].coordinates[0], //longitude
-        event.geometries[0].coordinates[1] //latitude
-      ]
+      return ([{  //each event in array of events
+        type: "Feature",
+        properties: {
+          cluster: false,
+          fire_id: event.id,
+          title: event.title
+          //you can add any fields you want in properties
+        },
+        geometry: { //data that allows supercluster to place points on the map
+          type: "Point",
+          coordinates: [
+            event.geometries[0].coordinates[0], //longitude
+            event.geometries[0].coordinates[1] //latitude
+          ]
+        }
+      }])
+    } else {
+      return [];
     }
   }
-  )
   );
 
-  const { clusters } = useSupercluster({
+
+
+  console.log('points: ');
+  console.log(points);
+
+  const { clusters, supercluster } = useSupercluster({ //supercluster returns the two variables in the {}
     points, //points Array of your markers. must be called points
     bounds,
     zoom,
     options: {radius: 75, maxZoom: 20}
   })
 
-  console.log(clusters);
+  // console.log(clusters);
 
 
   return (
@@ -108,10 +118,17 @@ export default function MapComponent({eventData}){
             return <FireCluster 
               key={cl.id}
               className="fire-cluster-wrapper" 
-              markerCount={pointCount}
+              clusterSize={pointCount}
+              totalCount={points.length}
               lng={longitude}
-              lat={latitude} 
-              onClick={() => {console.log("testing CLUSTER " + cl.id)}}/>
+              lat={latitude}
+              onClick={() => {
+                const expansionZoom = Math.min( supercluster.getClusterExpansionZoom(cl.id), 20); //larger number is more zoomed in, 20 is max
+
+                mapRef.current.setZoom(expansionZoom); //zoom in
+                mapRef.current.panTo({lat: latitude, lng: longitude}); //set x y coordinates to center on the cluster
+                console.log("testing CLUSTER " + cl.id);
+              }}/>
           } 
           else{ //if its not a cluster, it's a cluster of just one fire, so it has the properties of the fire in it
             return <FireMarker 
@@ -119,7 +136,14 @@ export default function MapComponent({eventData}){
               className="fire-marker-wrapper" 
               lng={cl.geometry.coordinates[0]}
               lat={cl.geometry.coordinates[1]} 
-              onClick={() => {console.log("testing " + cl.properties.fire_id + " " + cl.properties.title)}}/>
+              onClick={() => {
+                // const expansionZoom = Math.min( supercluster.getClusterExpansionZoom(cl.id), 20); //larger number is more zoomed in, 20 is max
+
+                mapRef.current.setZoom(Math.max(zoom, 8)); //zoom in
+                mapRef.current.panTo({lat: latitude, lng: longitude}); //set x y coordinates to center on the cluster
+                console.log(zoom);
+                // console.log("testing CLUSTER " + cl.id);
+              }}/>
                 // ()=> setLocationInfo({ id: event.id, title: event.title })
           }
 
