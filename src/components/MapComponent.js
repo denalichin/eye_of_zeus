@@ -51,7 +51,7 @@ export default function MapComponent({eventData}){
 
   const points = eventData.flatMap(event => { //flatmap allows removing unwanted events (non fire), while if we used map we're forced to return null entries
     console.log(event.categories[0].id)
-    if(event.categories[0].id === 8){
+    if(event.categories[0].id === "wildfires"){
 
       return ([{  //each event in array of events
         type: "Feature",
@@ -64,8 +64,8 @@ export default function MapComponent({eventData}){
         geometry: { //data that allows supercluster to place points on the map
           type: "Point",
           coordinates: [
-            event.geometries[0].coordinates[0], //longitude
-            event.geometries[0].coordinates[1] //latitude
+            event.geometry[0].coordinates[0], //longitude
+            event.geometry[0].coordinates[1] //latitude
           ]
         }
       }])
