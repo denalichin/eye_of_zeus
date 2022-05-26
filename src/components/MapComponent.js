@@ -58,7 +58,8 @@ export default function MapComponent({eventData}){
         properties: {
           cluster: false,
           fire_id: event.id,
-          title: event.title
+          title: event.title,
+          url: event.sources[0].url
           //you can add any fields you want in properties
         },
         geometry: { //data that allows supercluster to place points on the map
@@ -136,6 +137,9 @@ export default function MapComponent({eventData}){
               className="fire-marker-wrapper" 
               lng={cl.geometry.coordinates[0]}
               lat={cl.geometry.coordinates[1]} 
+              title={cl.properties.title}
+              fire_id={cl.properties.fire_id}
+              url={cl.properties.url}
               onClick={() => {
                 // const expansionZoom = Math.min( supercluster.getClusterExpansionZoom(cl.id), 20); //larger number is more zoomed in, 20 is max
 
