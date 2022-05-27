@@ -17,6 +17,7 @@ function App() {
       const res = await fetch(NASA_EONET);
       const { events } = await res.json();
       setEventData(events);
+
       setLoading(false);
     }
 
@@ -28,6 +29,7 @@ function App() {
   return (
    <div className="background">
      <div className="Menu">Testing</div>
+     {/* <LoadingScreen className="loading-screen"/> */}
      {!loading ? <MapComponent eventData={eventData}/> : <LoadingScreen/> /*shorthand if else statement*/}
      {/* <ReactMap/> */}
    </div>
