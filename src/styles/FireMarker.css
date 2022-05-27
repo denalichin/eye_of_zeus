@@ -11,7 +11,7 @@
     filter:drop-shadow(0 0 0.2rem rgb(255, 123, 0));
     /* border: solid red 1px; */
     animation: fire-pulse 1s infinite;
-
+    z-index: -1;
 }
 
 @keyframes fire-pulse {
@@ -34,7 +34,11 @@
     font-size: 2.5rem;
     filter:drop-shadow(0 0 1rem rgb(255, 0, 128));
     cursor: pointer;
+}
 
+.fire-marker-icon.selected {
+    color: rgb(255, 0, 93);
+    border: solid rgb(255, 0, 93) 1px;
 }
 
 .container {
@@ -53,16 +57,28 @@
     font-size: 0.7rem;
     color: white;
     background-color: rgb(0,0,0,0.8);
-    /* visibility: hidden; */
-    /* opacity: 0; */
-    /* transition: all 1s ease-out; */
+    position: relative; /*position must be set for z index to work*/
+    z-index: 100;
+    align-items: center;
 }
 
-.description-box:hover {
-    /* visibility: visible; */
-    /* opacity: 1; */
-    /* transition: all 1s ease-in; */
+.description-box.visible {
+    border: solid white 1px;
+    visibility: visible;
+    opacity: 100;
+    transition: all 0.5s ease-in;
 }
+
+.description-box.invisible {
+    visibility: hidden;
+    /* visibility: visible; */
+    opacity: 0;
+    transition: all 0.3s ease-out;
+}
+
+/* .description-inner-box {
+    border: solid red 1px;
+} */
 
 .description-title {
     font-size: 0.8rem;
@@ -74,4 +90,18 @@
     /* border: solid red 1px; */
     margin-left: 1rem;
     margin-right: 1rem;
+}
+
+.more-info{
+    color: white;
+    border: solid white 1px;
+    width: 5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    padding: 0.3rem 0.3rem 0.3rem 0.3rem;
+    /* font-weight: bold; */
+    text-decoration: none;
 }

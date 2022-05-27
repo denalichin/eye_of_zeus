@@ -22,7 +22,7 @@ export default function MapComponent({eventData}){
       lat: 34.0344088,
       lng: -117.7805787,
     },
-    defaultZoom: 10
+    defaultZoom: 0
   };
 
   const mapOptions = useMemo(() => ({
@@ -50,7 +50,7 @@ export default function MapComponent({eventData}){
   // })
 
   const points = eventData.flatMap(event => { //flatmap allows removing unwanted events (non fire), while if we used map we're forced to return null entries
-    console.log(event.categories[0].id)
+    // console.log(event.categories[0].id)
     if(event.categories[0].id === "wildfires"){
 
       return ([{  //each event in array of events
@@ -78,8 +78,8 @@ export default function MapComponent({eventData}){
 
 
 
-  console.log('points: ');
-  console.log(points);
+  // console.log('points: ');
+  // console.log(points);
 
   const { clusters, supercluster } = useSupercluster({ //supercluster returns the two variables in the {}
     points, //points Array of your markers. must be called points
@@ -123,7 +123,7 @@ export default function MapComponent({eventData}){
               totalCount={points.length}
               lng={longitude}
               lat={latitude}
-              onClick={() => {
+              zoomIn={() => {
                 const expansionZoom = Math.min( supercluster.getClusterExpansionZoom(cl.id), 20); //larger number is more zoomed in, 20 is max
 
                 mapRef.current.setZoom(expansionZoom); //zoom in
@@ -140,7 +140,7 @@ export default function MapComponent({eventData}){
               title={cl.properties.title}
               fire_id={cl.properties.fire_id}
               url={cl.properties.url}
-              onClick={() => {
+              zoomIn={() => {
                 // const expansionZoom = Math.min( supercluster.getClusterExpansionZoom(cl.id), 20); //larger number is more zoomed in, 20 is max
 
                 mapRef.current.setZoom(Math.max(zoom, 8)); //zoom in

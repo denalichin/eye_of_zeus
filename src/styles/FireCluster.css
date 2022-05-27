@@ -8,10 +8,12 @@
     /* font-size: 2rem; */
     transform: translateY(-50%); /* fixes icons being slightly offset via api bug */
     transition: 0.5s;
-    filter:drop-shadow(0 0 0.2rem rgb(255, 242, 0))
+    filter:drop-shadow(0 0 0.2rem rgb(255, 242, 0));
     /* border: solid red 1px; */
     /* animation: pulse-red 2s infinite; */
-
+    z-index: 1;
+    border: solid rgb(255, 179, 0) 2px;
+    border-radius: 50%;
 }
 
 .fire-cluster-icon:hover {
@@ -21,8 +23,15 @@
     transform: translateY(-50%); /* fixes icons being slightly offset via api bug */
     filter:drop-shadow(0 0 1rem rgb(246, 255, 0));
     cursor: pointer;
-
+    padding: 0.1rem 0.1rem 0.1rem 0.1rem;
 }
+
+
+/* .border-circle {
+    border: solid white 1px;
+    width: 5rem;
+    height: 5rem;
+} */
 
 .fire-cluster-text {
     color: white;
