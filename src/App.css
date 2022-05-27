@@ -46,3 +46,20 @@ html, body{
 .background{
   background-color: white;
 }
+
+.fade-in {
+    position: absolute;
+    top:0;
+    left: 0;
+    background: black;
+    height: 100%;
+    width: 100%;
+    z-index: 9999;
+    animation-name: custom-fadein;
+    animation-duration: 2s;
+}
+
+@keyframes custom-fadein {
+  0%   {opacity: 0.7;}
+  100% {opacity: 0;}
+}

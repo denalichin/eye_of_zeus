@@ -59,6 +59,7 @@ export default function MapComponent({eventData}){
           cluster: false,
           fire_id: event.id,
           title: event.title,
+          date: event.geometry[0].date,
           url: event.sources[0].url
           //you can add any fields you want in properties
         },
@@ -139,6 +140,7 @@ export default function MapComponent({eventData}){
               lat={cl.geometry.coordinates[1]} 
               title={cl.properties.title}
               fire_id={cl.properties.fire_id}
+              date={cl.properties.date}
               url={cl.properties.url}
               zoomIn={() => {
                 // const expansionZoom = Math.min( supercluster.getClusterExpansionZoom(cl.id), 20); //larger number is more zoomed in, 20 is max

@@ -1,4 +1,4 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 
 import lottie from 'lottie-web'
 
@@ -9,9 +9,33 @@ import Lottie from 'lottie-react'
 import earthAnimation from '../lottie_earth_animation.json';
 import '../styles/LoadingScreen.css';
 
-const LoadingScreen = () => {
+const LoadingScreen = ({isLoading}) => { //need {} or else it is passed as an object, not a boolean
 
-    // const container = useRef(null);
+    const [visible, setVisibility] = useState(isLoading);
+    useEffect( ()=> {
+        setVisibility(isLoading);
+    },[isLoading]);
+
+    console.log(isLoading);
+
+    return (
+        <div className={"loading-screen" + (isLoading? ' visible' : ' invisible')}>
+
+{/* className = {"fire-marker-icon" + (selected ? ' selected' : '')} */}
+            <Lottie className={"loading-animation"+ (isLoading? ' visible' : ' invisible')}
+                animationData={earthAnimation}
+                loop= {true}
+                autoplay={true}/>
+            <p className="loading-text">Initializing...</p>
+        </div>
+  );
+
+}
+
+export default LoadingScreen;
+
+
+  // const container = useRef(null);
 
     // useEffect(() => {
     //     Lottie.loadAnimation({
@@ -51,17 +75,3 @@ const LoadingScreen = () => {
     //     />
     //   </div>
     // );
-
-    return (
-        <div className="loading-screen">
-            <Lottie className="loading-animation"
-                animationData={earthAnimation}
-                loop= {true}
-                autoplay={true}/>
-            <p className="loading-text">Initializing...</p>
-        </div>
-  );
-
-}
-
-export default LoadingScreen;

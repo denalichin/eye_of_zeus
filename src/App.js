@@ -19,6 +19,7 @@ function App() {
       setEventData(events);
 
       setLoading(false);
+      console.log('setloading false');
     }
 
     fetchEvents();
@@ -28,9 +29,12 @@ function App() {
 
   return (
    <div className="background">
-     <div className="Menu">Testing</div>
+     {/* <div className="Menu">Testing</div> */}
      {/* <LoadingScreen className="loading-screen"/> */}
-     {!loading ? <MapComponent eventData={eventData}/> : <LoadingScreen/> /*shorthand if else statement*/}
+     {/* {loading ? <LoadingScreen/> : null}  */}
+     <LoadingScreen isLoading={loading} /> 
+     {/* {!loading ? <MapComponent eventData={eventData}/> : <LoadingScreen/>} */}
+     <MapComponent eventData={eventData}/>
      {/* <ReactMap/> */}
    </div>
   );

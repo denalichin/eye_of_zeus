@@ -14,6 +14,8 @@
     z-index: 1;
     border: solid rgb(255, 179, 0) 2px;
     border-radius: 50%;
+
+    /* animation: fadeIn 1s; */
 }
 
 .fire-cluster-icon:hover {
@@ -78,4 +80,9 @@
 		transform: scale(0.9);
 		box-shadow: 0 0 0 0 rgba(255, 82, 82, 0);
 	}
+}
+
+@keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
 }

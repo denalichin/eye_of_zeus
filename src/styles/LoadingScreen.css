@@ -7,14 +7,38 @@
     align-items: center;
     justify-content: center;
     flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    z-index: 2;
 }
 
 .loading-animation{
-    background-color: black;
+    /* background-color: black; */
     font-size: 0.3rem;
     height: 40%;
 }
 
 .loading-text{
     color: rgb(255, 215, 107);
+}
+
+
+/* fade out and fade in animations */
+.loading-screen.visible {
+    visibility: visible;
+    opacity: 100;
+    /* transition: all 0.5s ease-in; */
+}
+
+.loading-screen.invisible {
+    visibility: hidden;
+    /* visibility: visible; */
+    opacity: 0;
+    transition: all 1s ease-out;
+}
+
+.loading-animation.invisible{
+    height: 20%;
+    transition: all 1s ease-out;
 }

@@ -14,6 +14,7 @@
     z-index: -1;
 }
 
+
 @keyframes fire-pulse {
 	0% {
 		filter:drop-shadow(0 0 0.2rem rgb(255, 123, 0));
