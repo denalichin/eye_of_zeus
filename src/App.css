@@ -47,19 +47,36 @@ html, body{
   background-color: white;
 }
 
-.fade-in {
-    position: absolute;
-    top:0;
-    left: 0;
-    background: black;
-    height: 100%;
-    width: 100%;
-    z-index: 9999;
-    animation-name: custom-fadein;
-    animation-duration: 2s;
+/* GOOGLE MAPS CSS */
+
+/* targets button svg color */
+.gm-control-active{
+  /* background-color: red !important; */
+  background-color: none !important;
+  color: green !important;
+  filter: green !important; 
+  filter: hue-rotate(57deg) saturate(0.5) brightness(390%) saturate(4) !important;
 }
 
-@keyframes custom-fadein {
-  0%   {opacity: 0.7;}
-  100% {opacity: 0;}
+/* targets the background of the zoom buttons */
+.gmnoprint div{
+  color: rgb(255,255,255,0.7) !important;
+  background-color: rgb(0,0,0,0) !important;
 }
+
+/* targets zoom buttons */
+.gm-bundled-control .gmnoprint div{
+  border: solid white 2px !important;
+  background-color: rgb(0,0,0,0.6) !important;
+}
+
+/* target fullscreen toggle button */
+.gm-fullscreen-control{
+  background-color: rgb(0,0,0,0) !important;
+  border: solid white 2px !important;
+  background-color: rgb(0,0,0,0.6) !important;
+}
+
+
+
+/* button[title='Corporate'] */

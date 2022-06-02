@@ -16,7 +16,7 @@ const LoadingScreen = ({isLoading}) => { //need {} or else it is passed as an ob
         setVisibility(isLoading);
     },[isLoading]);
 
-    console.log(isLoading);
+    console.log('loading screen: isLoading = ' + isLoading);
 
     return (
         <div className={"loading-screen" + (isLoading? ' visible' : ' invisible')}>
@@ -33,6 +33,8 @@ const LoadingScreen = ({isLoading}) => { //need {} or else it is passed as an ob
 }
 
 export default LoadingScreen;
+
+
 
 
   // const container = useRef(null);
