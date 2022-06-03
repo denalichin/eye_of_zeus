@@ -11,11 +11,9 @@ import LoadingScreen from './components/LoadingScreen';
 function App() {
   const [eventData, setEventData] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [clustering, setClustering] = useState(true);
+  const [clusteringEnabled, setClustering] = useState(true);
 
   useEffect(() => {
-
-    
     const fetchEvents = () => {
       setLoading(true);
       const res = fetch(NASA_EONET)
@@ -58,23 +56,27 @@ function App() {
     console.log(eventData);
   },[])
 
-  // function toggleClustering() {
-  //   setClustering(!clustering);
-  //   console.log(clustering);
-  //   // console.log("hasdfasdf");
-  // }
+  function toggleClustering() {
+    //console.log will show previous state since setclustering is
+    // console.log("before set to: " + clusteringEnabled);
+    setClustering(clusteringEnabled => !clusteringEnabled);
+  }
+
+  function clusterStatus(){
+    console.log(clusteringEnabled);
+  }
 
   return (
    <div className="background">
      {/* <div className="Menu">Testing</div> */}
      {/* <LoadingScreen className="loading-screen"/> */}
      {/* {loading ? <LoadingScreen/> : null}  */}
-     {/* <button onClick={toggleClustering}>asdf</button> */}
+     <button onClick={clusterStatus}>asdf</button>
      <LoadingScreen isLoading={loading} /> 
 
-     <Menu />
+     <Menu tClustering={toggleClustering} clusteringEnabled={clusteringEnabled}/>
      {/* {!loading ? <MapComponent eventData={eventData}/> : <LoadingScreen/>} */}
-     <MapComponent eventData={eventData}/>
+     <MapComponent eventData={eventData} clusteringEnabled={clusteringEnabled}/>
      {/* <ReactMap/> */}
    </div>
   );

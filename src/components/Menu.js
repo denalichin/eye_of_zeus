@@ -2,7 +2,14 @@ import { useState, useRef } from "react";
 
 import '../styles/Menu.css';
 
-const Menu = () => {
+const Menu = ({tClustering, clusteringEnabled}) => {
+
+
+    function handleCheckbox() {
+        // console.log('handle checkbox');
+        tClustering();
+    }
+
     return (
         <div className="menu">
             <div className="menu-header">
@@ -11,7 +18,7 @@ const Menu = () => {
             </div>
             <div className="menu-body">
                 <div className="menu-row">
-                    <input type="checkbox" />
+                    <input type="checkbox" onChange={handleCheckbox} defaultChecked={clusteringEnabled}/>
                     <p>Enable Clustering</p>
                 </div>
                 <p>Date slider</p>
