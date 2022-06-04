@@ -5,7 +5,7 @@
 .fire-marker-icon{
     /* border: solid red 1px; */
     color: rgb(255, 215, 107);
-    font-size: 1.5rem;
+    font-size: 1.3rem;
     transform: translateY(-50%); /* fixes icons being slightly offset via api bug */
     transition: 0.5s;
     filter:drop-shadow(0 0 0.2rem rgb(255, 123, 0));

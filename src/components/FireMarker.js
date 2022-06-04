@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { Icon } from "@iconify/react";
 import locationIcon from '@iconify/icons-mdi/fire'
+// import locationIcon from '@iconify/icons-mdi/hexagon'
 
 import '../styles/FireMarker.css';
 
@@ -58,6 +59,13 @@ const FireMarker = ({lat, lng, fire_id, title, url, zoomIn, date}) => {
         console.log("handle mouse leave");
     };
 
+    function formatDate(input){
+        const UTCdate = new Date(input);
+        // return UTCdate.toLocaleDateString();
+        // return UTCdate.toISOString().slice(0, 10);
+        return UTCdate.getMonth() + 1 + "-" + UTCdate.getDate() + "-" + UTCdate.getFullYear();
+    }
+
     return(
         <div className="fire-marker">
             <Icon icon={locationIcon} 
@@ -76,7 +84,7 @@ const FireMarker = ({lat, lng, fire_id, title, url, zoomIn, date}) => {
             >
                 <div className="description-inner-box">
                     <p className="description description-title">{title}</p>
-                    <p className="description">{'DATE: ' + date}</p>
+                    <p className="description">{'DATE: ' + formatDate(date)}</p>
                     <p className="description">{'COORD: (' + lat + ' , ' + lng + ')'}</p>
                     <p className="description">{"ID: " + fire_id}</p>
                 </div>

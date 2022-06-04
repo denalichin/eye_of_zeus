@@ -10,7 +10,7 @@ import InfoBox from "./InfoBox";
 
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
-export default function MapComponent({eventData, clusteringEnabled}){
+export default function MapComponent({eventData, clusteringEnabled, startDate, endDate}){
 
   const [locationInfo, setLocationInfo] = useState(null);
   const mapRef = useRef(); //creating a reference to the map
@@ -54,7 +54,7 @@ export default function MapComponent({eventData, clusteringEnabled}){
 
   const points = eventData.flatMap(event => { //flatmap allows removing unwanted events (non fire), while if we used map we're forced to return null entries
     // console.log(event.categories[0].id)
-    if(event.categories[0].id === "wildfires"){
+    if(event.categories[0].id === "wildfires" && (new Date(event.geometry[0].date) >= startDate) && (new Date(event.geometry[0].date) <= endDate)){
 
       return ([{  //each event in array of events
         type: "Feature",

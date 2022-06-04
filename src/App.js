@@ -12,8 +12,14 @@ function App() {
   const [eventData, setEventData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [clusteringEnabled, setClustering] = useState(true);
+  const [startDate, setStartDate] = useState(new Date(2018, 0, 1)); //months are 0 index, days start with 1
+  const [endDate, setEndDate] = useState(new Date());
 
   useEffect(() => {
+
+    console.log(startDate.toLocaleDateString());
+    console.log(endDate);
+
     const fetchEvents = () => {
       setLoading(true);
       const res = fetch(NASA_EONET)
@@ -62,7 +68,7 @@ function App() {
     setClustering(clusteringEnabled => !clusteringEnabled);
   }
 
-  function clusterStatus(){
+  function clusterStatus(){ //test function
     console.log(clusteringEnabled);
   }
 
@@ -71,12 +77,22 @@ function App() {
      {/* <div className="Menu">Testing</div> */}
      {/* <LoadingScreen className="loading-screen"/> */}
      {/* {loading ? <LoadingScreen/> : null}  */}
-     <button onClick={clusterStatus}>asdf</button>
      <LoadingScreen isLoading={loading} /> 
 
-     <Menu tClustering={toggleClustering} clusteringEnabled={clusteringEnabled}/>
+     <Menu 
+      tClustering={toggleClustering} 
+      clusteringEnabled={clusteringEnabled}
+      setStartDate={setStartDate}
+      setEndDate={setEndDate}
+      startDate={startDate}
+      endDate={endDate}/>
+
      {/* {!loading ? <MapComponent eventData={eventData}/> : <LoadingScreen/>} */}
-     <MapComponent eventData={eventData} clusteringEnabled={clusteringEnabled}/>
+     <MapComponent 
+      eventData={eventData} 
+      clusteringEnabled={clusteringEnabled}
+      startDate={startDate}
+      endDate={endDate}/>
      {/* <ReactMap/> */}
    </div>
   );

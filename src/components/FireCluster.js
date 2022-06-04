@@ -7,6 +7,8 @@ import '../styles/FireCluster.css';
 const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn}) => { //totalCount = total number of markers generated on map
     
     const [visibility, setVisibility] = useState(false)
+    const maxIconSize = 12;
+    const minIconSize = 11;
 
     function handleClick() {
         zoomIn();
@@ -49,7 +51,8 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn}) => { //totalCo
                 <Icon icon={locationIcon} 
                     className = "fire-cluster-icon"
                     style={{
-                        fontSize: `${1 + (clusterSize/totalCount) * 20}rem`
+                        // fontSize: `${1 + (clusterSize/totalCount) * 20}rem`
+                        fontSize: `${maxIconSize - (minIconSize * (1-(clusterSize/totalCount)))}rem`
                         }}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
