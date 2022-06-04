@@ -4,7 +4,7 @@ import locationIcon from '@iconify/icons-mdi/fire'
 
 import '../styles/FireCluster.css';
 
-const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn}) => { //totalCount = total number of markers generated on map
+const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children}) => { //totalCount = total number of markers generated on map
     
     const [visibility, setVisibility] = useState(false)
     const maxIconSize = 12;
@@ -27,6 +27,7 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn}) => { //totalCo
     function handleMouseEnter() {
         setVisibility(true);
         console.log("handle mouse enter");
+        console.log(children);
     };
 
     function handleMouseLeave() {
@@ -51,8 +52,8 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn}) => { //totalCo
                 <Icon icon={locationIcon} 
                     className = "fire-cluster-icon"
                     style={{
-                        // fontSize: `${1 + (clusterSize/totalCount) * 20}rem`
-                        fontSize: `${maxIconSize - (minIconSize * (1-(clusterSize/totalCount)))}rem`
+                        fontSize: `${1 + (clusterSize/totalCount) * 20}rem`
+                        // fontSize: `${maxIconSize - (minIconSize * (1-(clusterSize/totalCount)))}rem`
                         }}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}

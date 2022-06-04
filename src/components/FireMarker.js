@@ -1,7 +1,8 @@
 import { useState, useRef } from "react";
 import { Icon } from "@iconify/react";
-import locationIcon from '@iconify/icons-mdi/fire'
-// import locationIcon from '@iconify/icons-mdi/hexagon'
+// import locationIcon from '@iconify/icons-mdi/fire';
+// import exitIcon from '@iconify/bi/x';
+import locationIcon from '@iconify/icons-mdi/hexagon'
 
 import '../styles/FireMarker.css';
 
@@ -83,7 +84,14 @@ const FireMarker = ({lat, lng, fire_id, title, url, zoomIn, date}) => {
                 onMouseLeave={handleMouseLeave}
             >
                 <div className="description-inner-box">
-                    <p className="description description-title">{title}</p>
+                    <Icon icon={'bi:x'}
+                        onClick={handleClick}
+                        className="exit-button">
+                    </Icon>
+                    <div className="description-header">
+                        <p className="description description-title">{title}</p>
+                        {/* <p className="exit-button" onClick={handleClick}>x</p> */}
+                    </div>
                     <p className="description">{'DATE: ' + formatDate(date)}</p>
                     <p className="description">{'COORD: (' + lat + ' , ' + lng + ')'}</p>
                     <p className="description">{"ID: " + fire_id}</p>

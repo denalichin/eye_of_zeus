@@ -1,6 +1,7 @@
 import {useState, useMemo, useCallback, useRef} from "react";
 import GoogleMapReact from 'google-map-react'; //https://github.com/google-map-react/google-map-react
 import useSupercluster from "use-supercluster"; //https://github.com/leighhalliday/use-supercluster
+//https://github.com/mapbox/supercluster
 
 import '../styles/FireMarker.css';
 import { GOOGLE_MAPS_API_KEY, MAP_ID } from "../keys";
@@ -110,6 +111,7 @@ export default function MapComponent({eventData, clusteringEnabled, startDate, e
             totalCount={points.length}
             lng={longitude}
             lat={latitude}
+            children={supercluster.getLeaves(cl.id)} //not being used right now TEMP
             zoomIn={() => {
               const expansionZoom = Math.min( supercluster.getClusterExpansionZoom(cl.id), 20); //larger number is more zoomed in, 20 is max
 

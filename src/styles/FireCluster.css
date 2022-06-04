@@ -5,8 +5,8 @@
 .fire-cluster-icon{
     /* border: solid red 1px; */
     color: rgb(255, 215, 107);
-    font-size: 2rem;
-    transform: translateY(-50%); /*fixes icons being slightly offset via api bug */
+    /* font-size: 2rem; */
+    transform: translateY(-50%) translateX(0%); /*fixes icons being slightly offset via api bug */
     transition: 0.5s;
     filter:drop-shadow(0 0 0.2rem rgb(255, 242, 0));
     /* border: solid red 1px; */
