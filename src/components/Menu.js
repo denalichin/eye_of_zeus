@@ -2,8 +2,38 @@ import { useState, useRef } from "react";
 
 import '../styles/Menu.css';
 
+import { Icon } from "@iconify/react";
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
+import Switch from "./Switch";
+
 const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDate, endDate}) => {
 
+    const today = new Date();
+    const years = Array.from(Array(5), (e,i)=>i + today.getFullYear() - 4);
+    const months = [
+        "January",
+        "February",
+        "March",
+        "April",
+        "May",
+        "June",
+        "July",
+        "August",
+        "September",
+        "October",
+        "November",
+        "December",
+    ];
+
+    const [showMenu, setShowMenu] = useState(true)
+
+
+    function toggleShowMenu() {
+        //instead of setting to !showMenu, we take the previous value and invert it
+        setShowMenu(prev => !prev, console.log('showMenu = ' + showMenu));
+        console.log()
+    }
 
     function handleCheckbox() {
         // console.log('handle checkbox');
@@ -26,47 +56,104 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
     //handles if we pick a later date than the enddate with start date
     function handleStartDate(input){
         //date comes in as a string
-        const date = new Date(input)
-        const correctDate = new Date( date.getTime() - date.getTimezoneOffset() * -60000 ); //account for timezone offset
+        // const date = new Date(input)
+        // const correctDate = new Date( date.getTime() - date.getTimezoneOffset() * -60000 ); //account for timezone offset
 
-        if(correctDate > endDate){
-            setEndDate(correctDate);
+        if(input > endDate){
+            setEndDate(input);
         }
 
-        setStartDate(correctDate);
+        setStartDate(input);
 
     }
 
     function handleEndDate(input){
-
-        console.log(input);
-        const date = new Date(input)
-        const correctDate = new Date( date.getTime() - date.getTimezoneOffset() * -60000 ); //account for timezone offset
-        console.log(correctDate);
-        if(correctDate < startDate){
-            setStartDate(correctDate);
+        // const date = new Date(input)
+        // const correctDate = new Date( date.getTime() - date.getTimezoneOffset() * -60000 ); //account for timezone offset
+        // console.log(correctDate);
+        if(input < startDate){
+            setStartDate(input);
         }
 
-        setEndDate(correctDate);
+        setEndDate(input);
+    }
+
+    function customHeader( //custom header for dropdown calendar selector
+        date,
+        changeYear,
+        changeMonth,
+        decreaseMonth,
+        increaseMonth,
+        prevMonthButtonDisabled,
+        nextMonthButtonDisabled){
+            return (
+                <div>
+                    <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+                        {"<"}
+                    </button>
+
+                    <select
+                        value={months[date.getMonth()]}
+                        onChange={({ target: { value } }) =>
+                        changeMonth(months.indexOf(value))
+                        }
+                    >
+                        {months.map((option) => (
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                        ))}
+                    </select>
+
+                    <select
+                        value={date.getFullYear()}
+                        onChange={({ target: { value } }) => changeYear(value)}
+                    >
+                        {years.map((option) => (
+                        <option key={option} value={option}>
+                            {option}
+                        </option>
+                        ))}
+                    </select>
+
+                    <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
+                        {">"}
+                    </button>
+                </div>
+
+            )
     }
 
 
 
     return (
-        <div className="menu">
-            <div className="menu-header">
-                <h1 className="menu-title">Options</h1>
-                <div className="menu-toggle">x</div>
+        <div className={(showMenu ? "menu" : "menu menu-closed")}>
+            {/* <Icon icon={'akar-icons:chevron-up'} className="menu-toggle" onClick={toggleShowMenu}></Icon> */}
+            <div class={"menu-btn" + (showMenu ? " open" : "")} onClick={toggleShowMenu}>
+                <div class="menu-btn__burger"></div>
             </div>
-            <div className="menu-body">
+            <div className={"menu-header" + (showMenu ? " shown" : " hidden")}>
+                <h1 className="menu-title">Options</h1>
+                
+            </div>
+            <div className={"menu-body" + (showMenu ? " shown" : " hidden")}>
                 <div className="menu-row cluster-section">
-                    <input id="cluster-toggle" type="checkbox" onChange={handleCheckbox} defaultChecked={clusteringEnabled}/>
-                    <label htmlFor="cluster-toggle">Enable Clustering</label>
+                    
+                    <label className="cluster-label">
+                        <span>Enable Clustering</span>
+                        <Switch
+                            onChange={handleCheckbox}
+                            isChecked={clusteringEnabled}
+                        />
+                        {/* <input id="cluster-toggle" type="checkbox" onChange={handleCheckbox} defaultChecked={clusteringEnabled}/> */}
+                    </label>
+                    
+                    {/* <label htmlFor="cluster-toggle">Enable Clustering</label> */}
                 </div>
-                <div className="menu-row date-section">
-                    <div className="date-div">
-                        <p>Start Date:</p>
-                        <input 
+                <div className="date-section">
+                    <div className="menu-row">
+                        <p className="menu-description">Start Date:</p>
+                        {/* <input 
                             className="date-picker"
                             onChange={e => handleStartDate(e.target.value)}
                             type="date" 
@@ -74,11 +161,30 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
                             name="start-date" 
                             value={dateToString(startDate)} 
                             min="2018-01-01" 
-                            max={dateToString(new Date())}></input>
+                            max={dateToString(new Date())}></input> */}
+                        <DatePicker 
+                            renderCustomHeader={({
+                                date,
+                                changeYear,
+                                changeMonth,
+                                decreaseMonth,
+                                increaseMonth,
+                                prevMonthButtonDisabled,
+                                nextMonthButtonDisabled,
+                            }) => ( customHeader(date,
+                                    changeYear,
+                                    changeMonth,
+                                    decreaseMonth,
+                                    increaseMonth,
+                                    prevMonthButtonDisabled,
+                                    nextMonthButtonDisabled)
+                            )}
+                            selected={startDate} 
+                            onChange={date => handleStartDate(date)}/>
                     </div>
                     <div className="date-div">
-                        <p>End Date:</p>
-                        <input
+                        <p className="menu-description">End Date:</p>
+                        {/* <input
                             className="date-picker"
                             onChange={e => handleEndDate(e.target.value)}
                             type="date" 
@@ -86,7 +192,27 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
                             name="end-date" 
                             value={dateToString(endDate)} 
                             min={"2018-01-01" } 
-                            max={dateToString(new Date())}></input>
+                            max={dateToString(new Date())}></input> */}
+                        <DatePicker 
+                            renderCustomHeader={({
+                                date,
+                                changeYear,
+                                changeMonth,
+                                decreaseMonth,
+                                increaseMonth,
+                                prevMonthButtonDisabled,
+                                nextMonthButtonDisabled,
+                            }) => ( customHeader(date,
+                                    changeYear,
+                                    changeMonth,
+                                    decreaseMonth,
+                                    increaseMonth,
+                                    prevMonthButtonDisabled,
+                                    nextMonthButtonDisabled)
+                            )}
+                            selected={endDate} 
+                            wrapperClassName="datepicker-test"
+                            onChange={date => handleEndDate(date)}/>
                     </div>
                     
 
@@ -94,7 +220,7 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
                     
                 
             </div>
-            <div className="menu-footer">
+            <div className={"menu-footer" + (showMenu ? " shown" : " hidden")}>
                 <p>powered by NASA EONET and Google MAPS API</p>
             </div>
         </div>

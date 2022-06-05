@@ -30,7 +30,7 @@ const FireMarker = ({lat, lng, fire_id, title, url, zoomIn, date}) => {
     // }
 
 
-    const [visibility, setVisibility] = useState(false)
+    const [visibility, setVisibility] = useState(false) //show or hide info box
     const [selected, setSelected] = useState(false); //keeps track if marker is selected
 
     function handleClick() {

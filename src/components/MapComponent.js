@@ -9,6 +9,7 @@ import FireMarker from "./FireMarker";
 import FireCluster from "./FireCluster";
 import InfoBox from "./InfoBox";
 
+
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
 export default function MapComponent({eventData, clusteringEnabled, startDate, endDate}){

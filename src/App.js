@@ -25,7 +25,8 @@ function App() {
       const res = fetch(NASA_EONET)
         .then(res => {
           if(res.ok){
-            console.log('success' + res);
+            console.log("res.ok")
+            console.log(res);
             return res.json();
           } else {
             console.log('not successful');
