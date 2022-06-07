@@ -12,8 +12,10 @@ function App() {
   const [eventData, setEventData] = useState([]);
   const [loading, setLoading] = useState(false);
   const [clusteringEnabled, setClustering] = useState(true);
-  const [startDate, setStartDate] = useState(new Date(2018, 0, 1)); //months are 0 index, days start with 1
+  const defaultStartDate = new Date(2018, 0, 1)
+  const [startDate, setStartDate] = useState(defaultStartDate); //months are 0 index, days start with 1
   const [endDate, setEndDate] = useState(new Date());
+
 
   useEffect(() => {
 
@@ -85,6 +87,7 @@ function App() {
       clusteringEnabled={clusteringEnabled}
       setStartDate={setStartDate}
       setEndDate={setEndDate}
+      defaultStartDate={defaultStartDate}
       startDate={startDate}
       endDate={endDate}/>
 

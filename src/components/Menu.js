@@ -1,13 +1,16 @@
 import { useState, useRef } from "react";
 
+
 import '../styles/Menu.css';
 
 import { Icon } from "@iconify/react";
 import DatePicker from 'react-datepicker';
+import Hamburger from 'hamburger-react'; // https://hamburger-react.netlify.app/
+
 import "react-datepicker/dist/react-datepicker.css";
 import Switch from "./Switch";
 
-const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDate, endDate}) => {
+const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, defaultStartDate, startDate, endDate}) => {
 
     const today = new Date();
     const years = Array.from(Array(5), (e,i)=>i + today.getFullYear() - 4);
@@ -78,6 +81,14 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
         setEndDate(input);
     }
 
+    function resetStartDate(){
+        setStartDate(defaultStartDate);
+    }
+
+    function resetEndDate(){
+        setEndDate(today);
+    }
+
     function customHeader( //custom header for dropdown calendar selector
         date,
         changeYear,
@@ -87,12 +98,19 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
         prevMonthButtonDisabled,
         nextMonthButtonDisabled){
             return (
-                <div>
-                    <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
+                <div className={'custom-header'}>
+                    {/* <button onClick={decreaseMonth} disabled={prevMonthButtonDisabled}>
                         {"<"}
-                    </button>
+                    </button> */}
+
+                    <Icon icon={'akar-icons:chevron-left'}
+                        className={'calendar-button'}
+                        onClick={decreaseMonth} 
+                        disabled={prevMonthButtonDisabled}>
+                    </Icon>
 
                     <select
+                        className={'calendar-select'}
                         value={months[date.getMonth()]}
                         onChange={({ target: { value } }) =>
                         changeMonth(months.indexOf(value))
@@ -106,6 +124,7 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
                     </select>
 
                     <select
+                        className={'calendar-select'}
                         value={date.getFullYear()}
                         onChange={({ target: { value } }) => changeYear(value)}
                     >
@@ -116,9 +135,15 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
                         ))}
                     </select>
 
-                    <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
+                    {/* <button onClick={increaseMonth} disabled={nextMonthButtonDisabled}>
                         {">"}
-                    </button>
+                    </button> */}
+                    <Icon icon={'akar-icons:chevron-right'}
+                        className={'calendar-button'}
+                        onClick={increaseMonth} 
+                        disabled={nextMonthButtonDisabled}>
+                    </Icon>
+
                 </div>
 
             )
@@ -129,11 +154,17 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
     return (
         <div className={(showMenu ? "menu" : "menu menu-closed")}>
             {/* <Icon icon={'akar-icons:chevron-up'} className="menu-toggle" onClick={toggleShowMenu}></Icon> */}
-            <div class={"menu-btn" + (showMenu ? " open" : "")} onClick={toggleShowMenu}>
-                <div class="menu-btn__burger"></div>
+            {/* <div class={"menu-btn" + (showMenu ? " open" : "")} onClick={toggleShowMenu}> */}
+            <div class="menu-toggle">
+                {/* <div class="menu-btn__burger"></div> */}
+                <Hamburger 
+                    // class={"menu-toggle"}
+                    size={24}
+                    toggled={showMenu} 
+                    toggle={toggleShowMenu} />
             </div>
             <div className={"menu-header" + (showMenu ? " shown" : " hidden")}>
-                <h1 className="menu-title">Options</h1>
+                <h1 className="menu-title">Preferences</h1>
                 
             </div>
             <div className={"menu-body" + (showMenu ? " shown" : " hidden")}>
@@ -162,27 +193,34 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
                             value={dateToString(startDate)} 
                             min="2018-01-01" 
                             max={dateToString(new Date())}></input> */}
-                        <DatePicker 
-                            renderCustomHeader={({
-                                date,
-                                changeYear,
-                                changeMonth,
-                                decreaseMonth,
-                                increaseMonth,
-                                prevMonthButtonDisabled,
-                                nextMonthButtonDisabled,
-                            }) => ( customHeader(date,
+                        
+                        <div className={'date-reset-wrapper'}>
+                            <Icon icon={'icon-park-outline:undo'}
+                                onClick={resetStartDate}
+                                className={'reset-button'}>
+                            </Icon>
+                            <DatePicker 
+                                renderCustomHeader={({
+                                    date,
                                     changeYear,
                                     changeMonth,
                                     decreaseMonth,
                                     increaseMonth,
                                     prevMonthButtonDisabled,
-                                    nextMonthButtonDisabled)
-                            )}
-                            selected={startDate} 
-                            onChange={date => handleStartDate(date)}/>
+                                    nextMonthButtonDisabled,
+                                }) => ( customHeader(date,
+                                        changeYear,
+                                        changeMonth,
+                                        decreaseMonth,
+                                        increaseMonth,
+                                        prevMonthButtonDisabled,
+                                        nextMonthButtonDisabled)
+                                )}
+                                selected={startDate} 
+                                onChange={date => handleStartDate(date)}/>
+                        </div>
                     </div>
-                    <div className="date-div">
+                    <div className="menu-row">
                         <p className="menu-description">End Date:</p>
                         {/* <input
                             className="date-picker"
@@ -193,26 +231,32 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, startDa
                             value={dateToString(endDate)} 
                             min={"2018-01-01" } 
                             max={dateToString(new Date())}></input> */}
-                        <DatePicker 
-                            renderCustomHeader={({
-                                date,
-                                changeYear,
-                                changeMonth,
-                                decreaseMonth,
-                                increaseMonth,
-                                prevMonthButtonDisabled,
-                                nextMonthButtonDisabled,
-                            }) => ( customHeader(date,
+                        <div className="date-reset-wrapper">
+                            <Icon icon={'icon-park-outline:undo'}
+                                onClick={resetEndDate}
+                                className={'reset-button'}>
+                            </Icon>
+                            <DatePicker 
+                                renderCustomHeader={({
+                                    date,
                                     changeYear,
                                     changeMonth,
                                     decreaseMonth,
                                     increaseMonth,
                                     prevMonthButtonDisabled,
-                                    nextMonthButtonDisabled)
-                            )}
-                            selected={endDate} 
-                            wrapperClassName="datepicker-test"
-                            onChange={date => handleEndDate(date)}/>
+                                    nextMonthButtonDisabled,
+                                }) => ( customHeader(date,
+                                        changeYear,
+                                        changeMonth,
+                                        decreaseMonth,
+                                        increaseMonth,
+                                        prevMonthButtonDisabled,
+                                        nextMonthButtonDisabled)
+                                )}
+                                selected={endDate} 
+                                wrapperClassName="datepicker-test"
+                                onChange={date => handleEndDate(date)}/>
+                        </div>
                     </div>
                     
 
