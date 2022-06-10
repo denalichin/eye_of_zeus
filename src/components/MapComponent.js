@@ -112,14 +112,20 @@ export default function MapComponent({eventData, clusteringEnabled, startDate, e
             totalCount={points.length}
             lng={longitude}
             lat={latitude}
-            children={supercluster.getLeaves(cl.id)} //not being used right now TEMP
+            // setZoom={mapRef.current.setZoom}
+            mapRef={mapRef}
+            expansionZoom={Math.min( supercluster.getClusterExpansionZoom(cl.id), 20)}
+            children={supercluster.getLeaves(cl.id, Infinity)} //not being used right now TEMP
             zoomIn={() => {
               const expansionZoom = Math.min( supercluster.getClusterExpansionZoom(cl.id), 20); //larger number is more zoomed in, 20 is max
 
               mapRef.current.setZoom(expansionZoom); //zoom in
               mapRef.current.panTo({lat: latitude, lng: longitude}); //set x y coordinates to center on the cluster
-              console.log("testing CLUSTER " + cl.id);
+              // console.log("testing CLUSTER " + cl.id);
+              console.log(supercluster.getLeaves(cl.id));
             }}/>
+
+            
         } 
         else{ //if its not a cluster, it's a cluster of just one fire, so it has the properties of the fire in it
           return <FireMarker 

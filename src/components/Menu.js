@@ -155,7 +155,7 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, default
         <div className={(showMenu ? "menu" : "menu menu-closed")}>
             {/* <Icon icon={'akar-icons:chevron-up'} className="menu-toggle" onClick={toggleShowMenu}></Icon> */}
             {/* <div class={"menu-btn" + (showMenu ? " open" : "")} onClick={toggleShowMenu}> */}
-            <div class="menu-toggle">
+            <div className="menu-toggle">
                 {/* <div class="menu-btn__burger"></div> */}
                 <Hamburger 
                     // class={"menu-toggle"}
@@ -254,7 +254,6 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, default
                                         nextMonthButtonDisabled)
                                 )}
                                 selected={endDate} 
-                                wrapperClassName="datepicker-test"
                                 onChange={date => handleEndDate(date)}/>
                         </div>
                     </div>

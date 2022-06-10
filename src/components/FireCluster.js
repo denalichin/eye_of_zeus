@@ -4,15 +4,14 @@ import locationIcon from '@iconify/icons-mdi/fire'
 
 import '../styles/FireCluster.css';
 
-const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children}) => { //totalCount = total number of markers generated on map
+const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRef, expansionZoom}) => { //totalCount = total number of markers generated on map
     
     const [visibility, setVisibility] = useState(false)
     const maxIconSize = 12;
     const minIconSize = 11;
 
     function handleClick() {
-        zoomIn();
-
+        mapRef.current.setZoom(expansionZoom) //zoom in for the cluster
         // if(visibility && !selected.current){
         //     selected.current = true;
         // }
@@ -22,6 +21,10 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children}) => {
         // }
 
         console.log("handleclick");
+    };
+
+    function handleFireZoom(){
+        mapRef.current.setZoom(2)
     };
 
     function handleMouseEnter() {
@@ -46,7 +49,7 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children}) => {
             //     width: `${1 + (clusterSize/totalCount) * 20}rem`,
             //     height: `${1 + (clusterSize/totalCount) * 20}rem`
             // }}
-            onClick={zoomIn}
+            // onClick={zoomIn}
             >
             <div className="border-circle">
                 <Icon icon={locationIcon} 
@@ -64,10 +67,26 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children}) => {
                  {/* <div className="circle"></div> */}
             {/* <p className="fire-cluster-text">{clusterSize}</p> */}
 
-            <div className={"description-box" + (visibility ? ' visible' : ' invisible')}>
-                <p className="description description-title">{'FIRE CLUSTER'}</p>
+            <div className={"cluster-description-box" + (visibility ? ' visible' : ' invisible')}
+                 onMouseEnter={handleMouseEnter}
+                 onMouseLeave={handleMouseLeave}>
+                <p className="cluster-description-title">{'FIRE CLUSTER'}</p>
                 <p className="description">{'FIRE COUNT: ' + clusterSize}</p>
-
+                <div class="fire-list">
+                    {/* {children[0].properties.fire_id} */}
+                    {/* {children.map((c) => {<li key={c.properties.fire_id}>asdf</li>})} */}
+                    {children.map((fire) =>
+                        <p className="fire-list-row"
+                            onClick={()=>{
+                                const [longitude, latitude] = fire.geometry.coordinates;
+                                mapRef.current.panTo({lat: latitude, lng: longitude});
+                                mapRef.current.setZoom(10);
+                            }}
+                            key={fire.properties.fire_id}>{fire.properties.title}</p>
+                        // <p key={item.something_unique}>{item}</p>
+                    )
+                    }
+                </div>
             </div>
             
        
