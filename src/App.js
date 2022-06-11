@@ -5,7 +5,7 @@ import './App.css';
 import MapComponent from './components/MapComponent';
 import Menu from './components/Menu';
 
-import { NASA_EONET } from "./keys.js"
+// import { NASA_EONET } from "./keys.js"
 import LoadingScreen from './components/LoadingScreen';
 
 function App() {
