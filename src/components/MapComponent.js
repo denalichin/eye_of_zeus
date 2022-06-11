@@ -4,7 +4,7 @@ import useSupercluster from "use-supercluster"; //https://github.com/leighhallid
 //https://github.com/mapbox/supercluster
 
 import '../styles/FireMarker.css';
-import { GOOGLE_MAPS_API_KEY, MAP_ID } from "../keys";
+// import { GOOGLE_MAPS_API_KEY, MAP_ID } from "../keys";
 import FireMarker from "./FireMarker";
 import FireCluster from "./FireCluster";
 import InfoBox from "./InfoBox";
@@ -28,7 +28,7 @@ export default function MapComponent({eventData, clusteringEnabled, startDate, e
   };
 
   const mapOptions = useMemo(() => ({
-    mapId: MAP_ID, //refers to the stylized map that is customized in Google Maps Platform
+    mapId: process.env.REACT_APP_MAP_ID, //refers to the stylized map that is customized in Google Maps Platform
     clickableIcons: false,
     streetViewControl: false,
     backgroundColor: "black",
@@ -179,8 +179,8 @@ export default function MapComponent({eventData, clusteringEnabled, startDate, e
     // Important! Always set the container height explicitly
     <div style={{ height: '100vh', width: '100%' }}>
       <GoogleMapReact
-        bootstrapURLKeys={{ key: GOOGLE_MAPS_API_KEY }}
-        mapId = {MAP_ID}
+        bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API_KEY }}
+        mapId = {process.env.REACT_APP_MAP_ID}
         options = {mapOptions}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.defaultZoom}

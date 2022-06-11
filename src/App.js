@@ -24,14 +24,37 @@ function App() {
 
     const fetchEvents = () => {
       setLoading(true);
-      const res = fetch(NASA_EONET)
+
+      //original call directly to api - this is replaced with netlify function below to hide api key
+      // const res = fetch(NASA_EONET)
+      //   .then(res => {
+      //     if(res.ok){
+      //       console.log("res.ok")
+      //       console.log(res);
+      //       return res.json();
+      //     } else {
+      //       console.log('not successful');
+      //     }
+      //   })
+      //   .then(data => {
+      //     // console.log(data);
+      //     const { events } = data;
+      //     // console.log(events);
+      //     setEventData(events);
+      //     setLoading(false);
+      //   })
+      //   .catch(error => console.log('ERROR FOUND: ' + error));
+
+
+
+      fetch(`/.netlify/functions/fetch-weather`)
         .then(res => {
           if(res.ok){
-            console.log("res.ok")
+            console.log("NETLIFY OK")
             console.log(res);
             return res.json();
           } else {
-            console.log('not successful');
+            console.log('Netlify fetch not successful');
           }
         })
         .then(data => {
@@ -42,7 +65,14 @@ function App() {
           setLoading(false);
         })
         .catch(error => console.log('ERROR FOUND: ' + error));
+
+        // .then(res => {console.log(res.json)})
+
+        console.log(process.env)
+
     }
+
+ 
 
     //https://gomakethings.com/how-to-use-async-and-await-with-vanilla-javascript/
     // const fetchEvents = async () => {

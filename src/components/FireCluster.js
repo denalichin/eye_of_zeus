@@ -23,10 +23,6 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRe
         console.log("handleclick");
     };
 
-    function handleFireZoom(){
-        mapRef.current.setZoom(2)
-    };
-
     function handleMouseEnter() {
         setVisibility(true);
         console.log("handle mouse enter");
@@ -49,7 +45,7 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRe
             //     width: `${1 + (clusterSize/totalCount) * 20}rem`,
             //     height: `${1 + (clusterSize/totalCount) * 20}rem`
             // }}
-            // onClick={zoomIn}
+            onClick={zoomIn}
             >
             <div className="border-circle">
                 <Icon icon={locationIcon} 
@@ -60,7 +56,7 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRe
                         }}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
-                    onClick={handleClick}
+                    // onClick={handleClick}
                 ></Icon>
             </div>
 
