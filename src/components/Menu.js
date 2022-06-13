@@ -264,7 +264,7 @@ const Menu = ({tClustering, clusteringEnabled, setStartDate, setEndDate, default
                 
             </div>
             <div className={"menu-footer" + (showMenu ? " shown" : " hidden")}>
-                <p>powered by NASA EONET and Google MAPS API</p>
+                <p>powered by NASA EONET and Google Maps API</p>
             </div>
         </div>
     )
