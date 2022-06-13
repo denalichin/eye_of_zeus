@@ -20,13 +20,13 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRe
         //     selected.current = !selected.current;
         // }
 
-        console.log("handleclick");
+        // console.log("handleclick");
     };
 
     function handleMouseEnter() {
         setVisibility(true);
-        console.log("handle mouse enter");
-        console.log(children);
+        // console.log("handle mouse enter");
+        // console.log(children);
     };
 
     function handleMouseLeave() {
@@ -34,7 +34,7 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRe
             setVisibility(false);
         // }
         
-        console.log("handle mouse leave");
+        // console.log("handle mouse leave");
     };
 
     
@@ -69,7 +69,7 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRe
                  onMouseLeave={handleMouseLeave}>
                 <p className="cluster-description-title">{'FIRE CLUSTER'}</p>
                 <p className="description">{'FIRE COUNT: ' + clusterSize}</p>
-                <div class="fire-list">
+                <div className="fire-list">
                     {/* {children[0].properties.fire_id} */}
                     {/* {children.map((c) => {<li key={c.properties.fire_id}>asdf</li>})} */}
                     {children.map((fire) =>

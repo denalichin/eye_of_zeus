@@ -52,8 +52,8 @@ function App() {
       fetch(`/.netlify/functions/fetch-weather`)
         .then(res => {
           if(res.ok){
-            console.log("NETLIFY OK")
-            console.log(res);
+            // console.log("NETLIFY OK")
+            // console.log(res);
             return res.json();
           } else {
             console.log('Netlify fetch not successful');
@@ -69,9 +69,6 @@ function App() {
         .catch(error => console.log('ERROR FOUND: ' + error));
 
         // .then(res => {console.log(res.json)})
-
-        console.log(process.env)
-
     }
 
  
