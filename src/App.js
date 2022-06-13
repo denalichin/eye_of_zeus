@@ -22,7 +22,7 @@ function App() {
     // console.log(startDate.toLocaleDateString());
     // console.log(endDate);
 
-    console.log(process.env.REACT_APP_MAP_ID)
+    // console.log(process.env.REACT_APP_MAP_ID)
 
     const fetchEvents = () => {
       setLoading(true);

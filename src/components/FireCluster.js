@@ -45,7 +45,7 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRe
             //     width: `${1 + (clusterSize/totalCount) * 20}rem`,
             //     height: `${1 + (clusterSize/totalCount) * 20}rem`
             // }}
-            onClick={zoomIn}
+            
             >
             <div className="border-circle">
                 <Icon icon={locationIcon} 
@@ -56,6 +56,7 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRe
                         }}
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
+                    onClick={zoomIn}
                     // onClick={handleClick}
                 ></Icon>
             </div>
@@ -74,6 +75,7 @@ const FireCluster = ({lat, lng, clusterSize, totalCount, zoomIn, children, mapRe
                     {children.map((fire) =>
                         <p className="fire-list-row"
                             onClick={()=>{
+                                console.log("yoohoooo");
                                 const [longitude, latitude] = fire.geometry.coordinates;
                                 mapRef.current.panTo({lat: latitude, lng: longitude});
                                 mapRef.current.setZoom(10);
