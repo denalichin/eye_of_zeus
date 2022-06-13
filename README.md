@@ -1,3 +1,7 @@
+# HOW TO RUN:
+
+fill out .env_example with api keys and rename to .env. Run with: npm run netlify dev
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
