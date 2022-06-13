@@ -8,7 +8,7 @@ const handler = async (event) => {
   
   
   try {
-    const {data} = await axios.get(process.env.NASA_EONET);
+    const {data} = await axios.get(process.env.REACT_APP_NASA_EONET);
 
     // console.log(data);
     console.log(data);
