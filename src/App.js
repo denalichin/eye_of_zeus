@@ -19,8 +19,10 @@ function App() {
 
   useEffect(() => {
 
-    console.log(startDate.toLocaleDateString());
-    console.log(endDate);
+    // console.log(startDate.toLocaleDateString());
+    // console.log(endDate);
+
+    console.log(process.env.REACT_APP_MAP_ID)
 
     const fetchEvents = () => {
       setLoading(true);
