@@ -11,15 +11,19 @@ const handler = async (event) => {
     const {data} = await axios.get(process.env.NASA_EONET);
 
     // console.log(data);
+    console.log(data);
+
     return {
       statusCode: 200,
       body: JSON.stringify(data)
+      // body: data
     }
 
   } catch (error){
     const {status, statusText, headers, data} = error.response;
     return {
       statusCode: status,
+      test: data,
       // status,
       body: JSON.stringify({status, statusText, headers, data})
       // body: error.toString()
